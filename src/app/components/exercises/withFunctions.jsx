@@ -1,17 +1,25 @@
-import React from "react";
-// import CardWrapper from "../../common/Card";
+import React, { useState } from "react";
+import CardWrapper from "../common/Card";
 
-const withFunctions = (Component) => () => {
-    const isAuth = localStorage.getItem("user");
-    console.log(isAuth);
+const withFunctions = (Component) => (props) => {
+    const [isAuth, setIsAuth] = useState(false);
     const onLogin = () => {
         localStorage.setItem("user", "login");
+        setIsAuth(true);
     };
     const onLogOut = () => {
         localStorage.removeItem("user");
+        setIsAuth(false);
     };
     return (
-        <Component {...{ isAuth, onLogin, onLogOut }} />
+        <CardWrapper>
+            <Component
+                {...props}
+                onLogOut={onLogOut}
+                onLogin={onLogin}
+                isAuth={isAuth}
+            />
+        </CardWrapper>
     );
 };
 

@@ -6,7 +6,7 @@ const withLogin = (Component) => (props) => {
     return (
         <>
             {isLogin
-                ? <Component {...props} />
+                ? <Component {...props}/>
                 : <SmallTitle>Auth</SmallTitle>}
         </>
     );

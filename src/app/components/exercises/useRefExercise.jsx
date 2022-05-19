@@ -1,11 +1,18 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import CollapseWrapper from "../common/collapse";
 const UseRefExercise = () => {
-    const blockRef = useRef();
+    const [initState, setInitState] = useState("Блок");
+    const prevState = useRef();
     const handleChangeBlock = () => {
-        blockRef.current.style.width = "80px";
-        blockRef.current.style.height = "150px";
-        blockRef.current.textContent = "text";
+        prevState.current.style.width = (
+            initState === "Блок" ? "80px" : "60px");
+            prevState.current.style.height = (
+        initState === "Блок" ? "150px" : "40px");
+            prevState.current.textContent = (
+        initState === "Блок" ? "Text" : "Блок");
+        setInitState(prevState => (
+            prevState === "Блок" ? "Text" : "Блок"
+        ));
     };
     return (
         <CollapseWrapper title="Упражнение">
@@ -17,8 +24,14 @@ const UseRefExercise = () => {
                 <li>Изменится содержимое блока на &quot;text&quot;</li>
                 <li>высота и ширина станут равны 150 и 80 соответственно</li>
             </ul>
+            <button
+                className="btn btn-secondary mx-auto m-3"
+                onClick={handleChangeBlock}
+            >
+                Изменить блок
+            </button>
             <div
-                ref={blockRef}
+                ref={prevState}
                 className="bg-primary d-flex flex-row justify-content-center align-items-center rounded"
                 style={{
                     height: 40,
@@ -28,12 +41,6 @@ const UseRefExercise = () => {
             >
                 <small>Блок</small>
             </div>
-            <button
-                className="btn btn-danger mx-auto m-3"
-                onClick={handleChangeBlock}
-            >
-                Изменить блок
-            </button>
         </CollapseWrapper>
     );
 };

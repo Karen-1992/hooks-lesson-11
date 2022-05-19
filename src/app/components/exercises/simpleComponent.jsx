@@ -1,33 +1,20 @@
 import React from "react";
-import CardWrapper from "../common/Card";
 import PropTypes from "prop-types";
 
 const SimpleComponent = ({ onLogin, onLogOut, isAuth }) => {
     return (
-        <CardWrapper>
-            {isAuth !== null
-                ? (
-                    <button
-                        type="button"
-                        onClick={onLogOut}
-                    >
-                        Выйти
-                    </button>
-                ) : (
-                    <button
-                        type="button"
-                        onClick={onLogin}
-                    >
-                        Войти
-                    </button>
-                )
-            }
-        </CardWrapper>
+        <button
+            type="button"
+            className="btn btn-primary mx-auto m-2"
+            onClick={isAuth ? onLogOut : onLogin}
+        >
+            {isAuth ? "Выйти из системы" : "Войти"}
+        </button>
     );
 };
 
 SimpleComponent.propTypes = {
-    isAuth: PropTypes.string,
+    isAuth: PropTypes.bool,
     onLogin: PropTypes.func,
     onLogOut: PropTypes.func
 };
