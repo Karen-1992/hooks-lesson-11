@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import CardWrapper from "../common/Card";
 
 const withFunctions = (Component) => (props) => {
-    const [isAuth, setIsAuth] = useState(false);
+    const [isAuth, setIsAuth] = useState(localStorage.getItem("user"));
     const onLogin = () => {
         localStorage.setItem("user", "login");
-        setIsAuth(true);
+        setIsAuth(prevState => !prevState);
     };
     const onLogOut = () => {
         localStorage.removeItem("user");
-        setIsAuth(false);
+        setIsAuth(prevState => !prevState);
     };
     return (
         <CardWrapper>
